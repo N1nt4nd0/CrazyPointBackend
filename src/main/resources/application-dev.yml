@@ -1,15 +1,15 @@
 spring:
   data:
     mongodb:
-      uri: ${CRAZY_POINT_MONGO_DB_URI_DEV}
-      database: ${CRAZY_POINT_MONGO_DB_NAME_DEV}
+      uri: ${MONGO_DB_URI_DEV}
+      database: ${MONGO_DB_NAME_DEV}
     redis:
-      url: ${CRAZYPOINT_REDIS_URL_DEV}
+      url: ${REDIS_URL_DEV}
   rabbitmq:
-    host: ${CRAZYPOINT_RABBIT_HOST_DEV}
-    port: ${CRAZYPOINT_RABBIT_PORT_DEV}
-    username: ${CRAZYPOINT_RABBIT_USERNAME_DEV}
-    password: ${CRAZYPOINT_RABBIT_PASSWORD_DEV}
+    host: ${RABBIT_MQ_HOST_DEV}
+    port: ${RABBIT_MQ_PORT_DEV}
+    username: ${RABBIT_MQ_USERNAME_DEV}
+    password: ${RABBIT_MQ_PASSWORD_DEV}
 
 server:
   address: 0.0.0.0

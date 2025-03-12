@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: CrazyPoint
   profiles:
     active: ${CRAZY_POINT_ACTIVE_PROFILE}
   data:
@@ -25,8 +23,8 @@ crazypoint:
     bigo-user-end-stream-routing-key: end-stream
   web:
     private-access:
-      username: ${CRAZY_POINT_WEB_ACCESS_USERNAME}
-      password: ${CRAZY_POINT_WEB_ACCESS_PASSWORD}
+      username: ${WEB_ACCESS_USERNAME}
+      password: ${WEB_ACCESS_PASSWORD}
     rest:
       api-info:
         title: CrazyPoint API

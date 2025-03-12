@@ -1,16 +1,16 @@
 spring:
   data:
     mongodb:
-      uri: ${CRAZY_POINT_MONGO_DB_URI}
-      database: ${CRAZY_POINT_MONGO_DB_NAME}
+      uri: ${MONGO_DB_URI}
+      database: ${MONGO_DB_NAME}
     redis:
-      url: ${CRAZYPOINT_REDIS_URL}
+      url: ${REDIS_URL}
   rabbitmq:
-    host: localhost
-    port: 5672
+    host: ${RABBIT_MQ_HOST}
+    port: ${RABBIT_MQ_PORT}
     stream:
-      username: guest
-      password: guest
+      username: ${RABBIT_MQ_USERNAME}
+      password: ${RABBIT_MQ_PASSWORD}
 
 crazypoint:
   cache-management:
