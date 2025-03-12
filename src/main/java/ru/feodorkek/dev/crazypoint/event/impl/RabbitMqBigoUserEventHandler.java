@@ -17,14 +17,12 @@ public class RabbitMqBigoUserEventHandler implements BigoUserEventHandler {
 
     @Override
     public void onStartBigoStream(final BigoUserStartStreamEvent event) {
-        rabbitTemplate.convertAndSend(bindingProperties.getBigoUserEventsExchangeName(),
-                bindingProperties.getBigoUserStartStreamRoutingKey(), event);
+        rabbitTemplate.convertAndSend(bindingProperties.getBigoUserStartStreamEventExchangeName(), "", event);
     }
 
     @Override
     public void onEndBigoStream(final BigoUserEndStreamEvent event) {
-        rabbitTemplate.convertAndSend(bindingProperties.getBigoUserEventsExchangeName(),
-                bindingProperties.getBigoUserEndStreamRoutingKey(), event);
+        rabbitTemplate.convertAndSend(bindingProperties.getBigoUserEndStreamEventExchangeName(), "", event);
     }
 
 }

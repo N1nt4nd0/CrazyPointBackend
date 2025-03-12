@@ -8,9 +8,8 @@ spring:
   rabbitmq:
     host: ${RABBIT_MQ_HOST}
     port: ${RABBIT_MQ_PORT}
-    stream:
-      username: ${RABBIT_MQ_USERNAME}
-      password: ${RABBIT_MQ_PASSWORD}
+    username: ${RABBIT_MQ_USERNAME}
+    password: ${RABBIT_MQ_PASSWORD}
 
 crazypoint:
   cache-management:

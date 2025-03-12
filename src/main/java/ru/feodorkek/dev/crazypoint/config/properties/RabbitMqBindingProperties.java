@@ -9,10 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties("crazypoint.rabbit-mq-binding")
 public class RabbitMqBindingProperties {
 
-    private String bigoUserEventsExchangeName;
-    private String bigoUserStartStreamQueueName;
-    private String bigoUserEndStreamQueueName;
-    private String bigoUserStartStreamRoutingKey;
-    private String bigoUserEndStreamRoutingKey;
+    private String bigoUserStartStreamEventExchangeName;
+    private String bigoUserEndStreamEventExchangeName;
 
 }
