@@ -24,7 +24,7 @@ import ru.feodorkek.dev.crazypoint.dto.DeleteBigoUserDtoOut;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-public class BigoUserPrivateRestController {
+public class BigoLivePrivateRestController {
 
     private final BigoUserUseCases bigoUserUseCases;
 

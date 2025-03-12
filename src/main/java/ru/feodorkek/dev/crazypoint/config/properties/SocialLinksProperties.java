@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@ConfigurationProperties("crazypoint.social-links-properties")
+@ConfigurationProperties("crazypoint.social-links")
 public class SocialLinksProperties {
 
     private Instagram instagram;

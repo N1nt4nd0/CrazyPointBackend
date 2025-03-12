@@ -15,7 +15,7 @@ import ru.feodorkek.dev.crazypoint.dto.BigoOfficialUserInfo;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-public class BigoUserPublicRestController {
+public class BigoLivePublicRestController {
 
     private final BigoUserUseCases bigoUserUseCases;
 

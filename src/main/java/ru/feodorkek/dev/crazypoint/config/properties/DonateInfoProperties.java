@@ -6,14 +6,15 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@ConfigurationProperties("crazypoint.donate-properties")
-public class DonateProperties {
+@ConfigurationProperties("crazypoint.donate-info")
+public class DonateInfoProperties {
 
-    private SberBankBelarus sberBankBelarus;
-    private BelarusBank belarusBank;
     private String donateLink;
-    private YooMoney yooMoney;
+
+    private BelarusBank belarusBank;
+    private SberBank sberBank;
     private PkoBank pkoBank;
+    private YooMoney yooMoney;
     private Usdt usdt;
 
     @Data
@@ -26,7 +27,7 @@ public class DonateProperties {
     }
 
     @Data
-    public static class SberBankBelarus {
+    public static class SberBank {
 
         private String title;
         private String card;
