@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      uri: ${CRAZY_POINT_MONGO_DB_URI}
+      database: ${CRAZY_POINT_MONGO_DB_NAME}
+    redis:
+      url: ${CRAZYPOINT_REDIS_URL}
+
+crazypoint:
+  cache-management:
+    clear-cache-on-start: false
+  bigo-live:
+    user-updates-check-enabled: true
