@@ -5,6 +5,12 @@ spring:
       database: ${CRAZY_POINT_MONGO_DB_NAME}
     redis:
       url: ${CRAZYPOINT_REDIS_URL}
+  rabbitmq:
+    host: localhost
+    port: 5672
+    stream:
+      username: guest
+      password: guest
 
 crazypoint:
   cache-management:

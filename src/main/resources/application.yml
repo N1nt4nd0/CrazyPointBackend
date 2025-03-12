@@ -17,6 +17,12 @@ server:
 crazypoint:
   exception-generator:
     string-unit-exception-probability-percent: 10
+  rabbit-mq-binding:
+    bigo-user-events-exchange-name: bigo-user-events-exchange
+    bigo-user-start-stream-queue-name: bigo-user-start-stream-queue
+    bigo-user-end-stream-queue-name: bigo-user-end-stream-queue
+    bigo-user-start-stream-routing-key: start-stream
+    bigo-user-end-stream-routing-key: end-stream
   web:
     private-access:
       username: ${CRAZY_POINT_WEB_ACCESS_USERNAME}

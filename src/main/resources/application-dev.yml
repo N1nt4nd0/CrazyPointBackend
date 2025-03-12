@@ -5,6 +5,11 @@ spring:
       database: ${CRAZY_POINT_MONGO_DB_NAME_DEV}
     redis:
       url: ${CRAZYPOINT_REDIS_URL_DEV}
+  rabbitmq:
+    host: ${CRAZYPOINT_RABBIT_HOST_DEV}
+    port: ${CRAZYPOINT_RABBIT_PORT_DEV}
+    username: ${CRAZYPOINT_RABBIT_USERNAME_DEV}
+    password: ${CRAZYPOINT_RABBIT_PASSWORD_DEV}
 
 server:
   address: 0.0.0.0

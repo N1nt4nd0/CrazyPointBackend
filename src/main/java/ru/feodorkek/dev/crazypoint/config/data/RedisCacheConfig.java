@@ -23,14 +23,6 @@ public class RedisCacheConfig implements PostConstructProvider {
         connectionFactory.getConnection().commands().flushDb();
     }
 
-    public void checkConnection() {
-        try {
-            connectionFactory.getConnection().commands().ping();
-        } catch (final Exception exception) {
-            throw new IllegalStateException("Can't connect to redis", exception);
-        }
-    }
-
     @Bean
     public CacheManagerCustomizer<RedisCacheManager> redisCacheManagerCustomizer() {
         return cacheManager -> cacheManager.setTransactionAware(true);
@@ -59,7 +51,11 @@ public class RedisCacheConfig implements PostConstructProvider {
 
     @Override
     public void postConstruct() {
-        checkConnection();
+        try {
+            connectionFactory.getConnection().commands().ping();
+        } catch (final Exception exception) {
+            throw new IllegalStateException("Can't connect to redis", exception);
+        }
         if (cacheProperties.isClearCacheOnStart()) {
             clearAllCache();
         }
