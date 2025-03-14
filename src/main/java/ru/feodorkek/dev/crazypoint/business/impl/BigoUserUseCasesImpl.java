@@ -2,7 +2,6 @@ package ru.feodorkek.dev.crazypoint.business.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.feodorkek.dev.crazypoint.business.BigoUserUseCases;
 import ru.feodorkek.dev.crazypoint.dto.BigoOfficialUserInfo;
 import ru.feodorkek.dev.crazypoint.dto.BigoUserDtoIn;
@@ -26,7 +25,6 @@ public class BigoUserUseCasesImpl implements BigoUserUseCases {
     private final BigoUserMapper bigoUserMapper;
 
     @Override
-    @Transactional
     public BigoUserDtoOut createNewUser(final BigoUserDtoIn bigoUserDtoIn) {
         final var newUser = bigoUserService.createNewUser(
                 bigoUserDtoIn.getSiteId(),
@@ -39,7 +37,6 @@ public class BigoUserUseCasesImpl implements BigoUserUseCases {
     }
 
     @Override
-    @Transactional
     public BigoUserDtoOut updateUser(final BigoUserDtoIn bigoUserDtoIn) {
         final var updatedUser = bigoUserService.updateUser(
                 bigoUserDtoIn.getSiteId(),
@@ -52,21 +49,18 @@ public class BigoUserUseCasesImpl implements BigoUserUseCases {
     }
 
     @Override
-    @Transactional
     public DeleteBigoUserDtoOut deleteUserBySiteId(final String siteId) {
         bigoUserService.deleteUserBySiteId(siteId);
         return new DeleteBigoUserDtoOut(siteId, "Bigo user was successfully deleted");
     }
 
     @Override
-    @Transactional
     public BigoUserDtoOut updateShowStreamMessages(final String siteId, final boolean showStreamMessages) {
         final var updatedUser = bigoUserService.updateShowStreamMessages(siteId, showStreamMessages);
         return bigoUserMapper.toBigoUserDtoOut(updatedUser);
     }
 
     @Override
-    @Transactional
     public BigoUsersListDtoOut getAllUsers() {
         final var bigoUsers = bigoUserService.getAllUsers()
                 .stream()
@@ -76,7 +70,6 @@ public class BigoUserUseCasesImpl implements BigoUserUseCases {
     }
 
     @Override
-    @Transactional
     public void startBigoStream(final String siteId, final String roomTopic) {
         final var bigoUser = bigoUserService.getUserBySiteId(siteId);
         bigoUserStreamService.startStream(bigoUser, roomTopic,
@@ -84,7 +77,6 @@ public class BigoUserUseCasesImpl implements BigoUserUseCases {
     }
 
     @Override
-    @Transactional
     public void endBigoStream(final String siteId) {
         final var bigoUser = bigoUserService.getUserBySiteId(siteId);
         bigoUserStreamService.endStream(bigoUser,

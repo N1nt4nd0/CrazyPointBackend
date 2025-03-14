@@ -3,10 +3,9 @@ package ru.feodorkek.dev.crazypoint.business.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.feodorkek.dev.crazypoint.business.BigoStreamChartUseCases;
 import ru.feodorkek.dev.crazypoint.config.data.CacheKeyBuilder;
-import ru.feodorkek.dev.crazypoint.dto.BigoStreamDailyChartDtoOut;
+import ru.feodorkek.dev.crazypoint.dto.BigoStreamChartDailyDtoOut;
 import ru.feodorkek.dev.crazypoint.dto.BigoStreamDaysDtoOut;
 import ru.feodorkek.dev.crazypoint.dto.BigoStreamPartChartData;
 import ru.feodorkek.dev.crazypoint.exception.BigoStreamChartException;
@@ -68,12 +67,11 @@ public class BigoStreamChartUseCasesImpl implements BigoStreamChartUseCases {
     }
 
     @Override
-    @Transactional
     @Cacheable(
             value = CacheKeyBuilder.BIGO_STREAM_DAILY_CHART_CACHE_NAME,
-            key = "@cacheKeyBuilder.buildBigoStreamDailyChartCacheKey(#siteId, #day)"
+            key = "@cacheKeyBuilder.buildBigoStreamChartDailyCacheKey(#siteId, #day)"
     )
-    public BigoStreamDailyChartDtoOut getDailyChartData(final String siteId,
+    public BigoStreamChartDailyDtoOut getChartDailyData(final String siteId,
                                                         final LocalDate day) {
         final var bigoUser = bigoUserService.getUserBySiteId(siteId);
         final var timeZone = ZoneId.of(bigoUser.getTimeZone());
@@ -93,12 +91,11 @@ public class BigoStreamChartUseCasesImpl implements BigoStreamChartUseCases {
             addChartData(chartData, startLabel, endLabel, secondsPart, session.getRoomTopic());
             totalSeconds += secondsPart;
         }
-        return new BigoStreamDailyChartDtoOut(bigoUser.getDisplayName(), chartData,
+        return new BigoStreamChartDailyDtoOut(bigoUser.getDisplayName(), chartData,
                 dateTimeService.secondsToHoursMinutesSecondsFormat(totalSeconds));
     }
 
     @Override
-    @Transactional
     @Cacheable(
             value = CacheKeyBuilder.BIGO_STREAM_DAYS_CACHE_NAME,
             key = "#siteId"

@@ -2,7 +2,6 @@ package ru.feodorkek.dev.crazypoint.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.feodorkek.dev.crazypoint.entity.BigoStreamSession;
 import ru.feodorkek.dev.crazypoint.repository.BigoStreamSessionRepository;
 import ru.feodorkek.dev.crazypoint.service.BigoStreamSessionService;
@@ -22,7 +21,6 @@ public class BigoStreamSessionServiceImpl implements BigoStreamSessionService {
     private final BigoStreamSessionRepository repository;
 
     @Override
-    @Transactional
     public List<BigoStreamSession> getEndedSessionsForDayQueryMethod(final String siteId,
                                                                      final LocalDate day,
                                                                      final ZoneId timeZone) {
@@ -32,7 +30,6 @@ public class BigoStreamSessionServiceImpl implements BigoStreamSessionService {
     }
 
     @Override
-    @Transactional
     public List<BigoStreamSession> getEndedSessionsForDayServiceMethod(final String siteId,
                                                                        final LocalDate day,
                                                                        final ZoneId timeZone) {
@@ -47,7 +44,6 @@ public class BigoStreamSessionServiceImpl implements BigoStreamSessionService {
     }
 
     @Override
-    @Transactional
     public List<LocalDate> getEndedSessionsDaysList(final String siteId, final ZoneId timeZone) {
         return getAllEndedSessions(siteId).stream()
                 .flatMap(session -> {
@@ -62,13 +58,11 @@ public class BigoStreamSessionServiceImpl implements BigoStreamSessionService {
     }
 
     @Override
-    @Transactional
     public List<BigoStreamSession> getAllEndedSessions(final String siteId) {
         return repository.findBySiteIdAndEndTimeNotNull(siteId);
     }
 
     @Override
-    @Transactional
     public BigoStreamSession createNewSession(final String siteId,
                                               final String roomTopic,
                                               final String timeZone,
@@ -77,7 +71,6 @@ public class BigoStreamSessionServiceImpl implements BigoStreamSessionService {
     }
 
     @Override
-    @Transactional
     public BigoStreamSession saveSession(final BigoStreamSession session) {
         return repository.save(session);
     }

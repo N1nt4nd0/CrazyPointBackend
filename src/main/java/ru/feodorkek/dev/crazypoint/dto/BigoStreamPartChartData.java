@@ -14,17 +14,18 @@ public class BigoStreamPartChartData implements Serializable {
     private final String start;
     private final String end;
     private final String title;
-    private final String subTitle;
+    private final String roomTopic;
 
     @JsonCreator
-    public BigoStreamPartChartData(@JsonProperty("start") final String start,
-                                   @JsonProperty("end") final String end,
-                                   @JsonProperty("title") final String title,
-                                   @JsonProperty("subTitle") final String subTitle) {
+    public BigoStreamPartChartData(
+            @JsonProperty("start") final String start,
+            @JsonProperty("end") final String end,
+            @JsonProperty("title") final String title,
+            @JsonProperty("roomTopic") final String roomTopic) {
+        this.roomTopic = roomTopic;
+        this.title = title;
         this.start = start;
         this.end = end;
-        this.title = title;
-        this.subTitle = subTitle;
     }
 
 }

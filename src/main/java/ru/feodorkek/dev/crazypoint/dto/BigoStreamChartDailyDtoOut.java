@@ -10,18 +10,19 @@ import java.util.List;
 
 @Getter
 @ToString
-public class BigoStreamDailyChartDtoOut implements Serializable {
+public class BigoStreamChartDailyDtoOut implements Serializable {
 
     private final String bigoUserName;
     private final List<BigoStreamPartChartData> chartData;
     private final String totalDailyTime;
 
     @JsonCreator
-    public BigoStreamDailyChartDtoOut(@JsonProperty("bigoUserName") final String bigoUserName,
-                                      @JsonProperty("chartData") final List<BigoStreamPartChartData> chartData,
-                                      @JsonProperty("totalDailyTime") final String totalDailyTime) {
+    public BigoStreamChartDailyDtoOut(
+            @JsonProperty("bigoUserName") final String bigoUserName,
+            @JsonProperty("chartData") final List<BigoStreamPartChartData> chartData,
+            @JsonProperty("totalDailyTime") final String totalDailyTime) {
+        this.totalDailyTime = totalDailyTime;
         this.bigoUserName = bigoUserName;
         this.chartData = chartData;
-        this.totalDailyTime = totalDailyTime;
     }
 }

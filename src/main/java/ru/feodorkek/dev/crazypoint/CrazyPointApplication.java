@@ -5,14 +5,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableCaching
 @EnableScheduling
 @EnableWebSecurity
 @SpringBootApplication
-@EnableTransactionManagement
 public class CrazyPointApplication {
+
+    // TODO try to setting up transactions for mongo Railway
+    // TODO remove social and billing infos
+    // TODO add avatars Controller with avatars links
 
     public static void main(final String[] args) {
         SpringApplication.run(CrazyPointApplication.class, args);

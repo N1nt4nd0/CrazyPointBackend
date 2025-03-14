@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties("crazypoint.web.rest.api-info")
 public class OpenApiInfoProperties {
 
-    private String title;
-    private String version;
     private String authorEmail;
+    private String version;
+    private String title;
 
 }

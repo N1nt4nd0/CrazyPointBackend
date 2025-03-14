@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.feodorkek.dev.crazypoint.config.data.CacheKeyBuilder;
 import ru.feodorkek.dev.crazypoint.entity.BigoUser;
 import ru.feodorkek.dev.crazypoint.exception.BigoUserStreamException;
@@ -26,7 +25,6 @@ public class BigoUserStreamServiceImpl implements BigoUserStreamService {
     private final BigoUserService userService;
 
     @Override
-    @Transactional
     public void startStream(final BigoUser bigoUser, final String roomTopic, final Instant startTime) {
         if (bigoUser.isStreamingNow()) {
             throw new BigoUserStreamException("Can't process start stream. Already streaming");
@@ -39,7 +37,6 @@ public class BigoUserStreamServiceImpl implements BigoUserStreamService {
     }
 
     @Override
-    @Transactional
     @Caching(evict = {
             @CacheEvict(
                     value = CacheKeyBuilder.BIGO_STREAM_DAYS_CACHE_NAME,
@@ -47,7 +44,7 @@ public class BigoUserStreamServiceImpl implements BigoUserStreamService {
             ),
             @CacheEvict(
                     value = CacheKeyBuilder.BIGO_STREAM_DAILY_CHART_CACHE_NAME,
-                    key = "@cacheKeyBuilder.buildBigoStreamDailyChartCacheKey(#bigoUser)"
+                    key = "@cacheKeyBuilder.buildBigoStreamChartDailyCacheKey(#bigoUser)"
             )}
     )
     public void endStream(final BigoUser bigoUser, final Instant endTime) {

@@ -12,20 +12,20 @@ import java.time.ZoneId;
 @RequiredArgsConstructor
 public class CacheKeyBuilder {
 
-    public static final String BIGO_STREAM_DAILY_CHART_CACHE_NAME = "bigo_stream_daily_chart_cache";
+    public static final String BIGO_STREAM_DAILY_CHART_CACHE_NAME = "bigo_stream_chart_daily_cache";
     public static final String BIGO_STREAM_DAYS_CACHE_NAME = "bigo_stream_days_cache";
 
     private final DateTimeService dateTimeService;
 
-    public String buildBigoStreamDailyChartCacheKey(final String siteId, final LocalDate day) {
+    public String buildBigoStreamChartDailyCacheKey(final String siteId, final LocalDate day) {
         return String.format("%s_%s", siteId, day.format(dateTimeService.daysMonthYearFormatter()));
     }
 
-    public String buildBigoStreamDailyChartCacheKey(final BigoUser bigoUser) {
+    public String buildBigoStreamChartDailyCacheKey(final BigoUser bigoUser) {
         final var streamSession = bigoUser.getLastStreamSession();
         final var timeZone = ZoneId.of(streamSession.getTimeZone());
         final var startDay = streamSession.getStartTime().atZone(timeZone).toLocalDate();
-        return buildBigoStreamDailyChartCacheKey(bigoUser.getSiteId(), startDay);
+        return buildBigoStreamChartDailyCacheKey(bigoUser.getSiteId(), startDay);
     }
 
 

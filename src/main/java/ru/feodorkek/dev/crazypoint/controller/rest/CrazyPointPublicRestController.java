@@ -7,9 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.feodorkek.dev.crazypoint.business.CrazyPointInfoUseCases;
-import ru.feodorkek.dev.crazypoint.dto.DonateInfoDtoOut;
-import ru.feodorkek.dev.crazypoint.dto.SocialLinksDtoOut;
+import ru.feodorkek.dev.crazypoint.business.CrazyPointUseCases;
+import ru.feodorkek.dev.crazypoint.dto.AvatarsDtoOut;
 
 @Tag(name = "CrazyPoint public usages")
 @CrossOrigin
@@ -17,7 +16,7 @@ import ru.feodorkek.dev.crazypoint.dto.SocialLinksDtoOut;
 @RequiredArgsConstructor
 public class CrazyPointPublicRestController {
 
-    private final CrazyPointInfoUseCases infoUseCases;
+    private final CrazyPointUseCases crazyPointUseCases;
 
     @Operation(summary = "Ping endpoint")
     @GetMapping("${crazypoint.web.rest.endpoints.public.ping}")
@@ -25,16 +24,10 @@ public class CrazyPointPublicRestController {
         return ResponseEntity.ok("pong");
     }
 
-    @Operation(summary = "Get donate info")
-    @GetMapping("${crazypoint.web.rest.endpoints.public.donate-info}")
-    public ResponseEntity<DonateInfoDtoOut> getDonateInfo() {
-        return ResponseEntity.ok(infoUseCases.getDonateInfo());
-    }
-
-    @Operation(summary = "Get social links")
-    @GetMapping("${crazypoint.web.rest.endpoints.public.social-links}")
-    public ResponseEntity<SocialLinksDtoOut> getSocialLinks() {
-        return ResponseEntity.ok(infoUseCases.getSocialLinks());
+    @Operation(summary = "Get avatar urls")
+    @GetMapping("${crazypoint.web.rest.endpoints.public.avatar-urls}")
+    public ResponseEntity<AvatarsDtoOut> getAvatarUrls() {
+        return ResponseEntity.ok(crazyPointUseCases.getAvatars());
     }
 
 }

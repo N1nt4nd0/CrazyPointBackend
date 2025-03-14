@@ -4,9 +4,12 @@ spring:
   data:
     mongodb:
       auto-index-creation: true
+  main:
+    web-application-type: servlet
+  web:
+    locale: en
 
 server:
-  port: ${PORT:8080}
   servlet:
     encoding:
       force-response: true
@@ -30,9 +33,10 @@ crazypoint:
       endpoints:
         public:
           ping: /api/public/ping
-          donate-info: /api/public/donate_info
-          social-links: /api/public/social_links
+          avatar-urls: /api/public/avatar_urls
           bigo-official-user-info: /api/public/bigo/official/user/info
+          bigo-user-stream-chart-daily-data: /api/public/bigo/internal/user/stream_chart_daily
+          bigo-user-stream-days-data: /api/public/bigo/internal/user/stream_days
           string-remove-dashes: /api/public/string/remove_dashes
           string-to-upper-case: /api/public/string/to_upper_case
           string-reverse: /api/public/string/reverse
@@ -48,44 +52,6 @@ crazypoint:
     user-updates-api-url: ${BIGO_LIVE_USER_UPDATES_API_URL}
     user-updates-check-delay-ms: 10000
     user-link-prefix: https://www.bigo.tv/user/
-  donate-info:
-    donate-link: https://crazypoint.vip/donate
-    belarus-bank:
-      title: BelarusBank card
-      card: 9112380175032152
-      iban: BY56AKBB30340002088280070000
-    sber-bank:
-      title: SberBank card
-      card: 5470874047539810
-      iban: BY43BPSB3014F000000010097002
-    pko-bank:
-      title: PKOBank card (Visa)
-      card: 4251250230037987
-      account-number: 02102011270000180203850088
-      iban: PL02102011270000180203850088
-    yoo-money:
-      title: YooMoney wallet
-      wallet: 4100117004369583
-    usd-t:
-      title: USDT (TRC20)
-      address: TA4uyqmmSXnRF8Z2UDQN1R4N1DkX88Ndk9
-  social-links:
-    instagram:
-      enabled: false
-      title: Instagram
-      link: https://www.instagram.com
-    telegram:
-      enabled: true
-      title: Telegram
-      link: https://t.me/pu3r41k
-    tiktok:
-      enabled: false
-      title: TikTok
-      link: https://tiktok.com
-    bigo-live:
-      enabled: true
-      title: BigoLive
-      link: https://www.bigo.tv/user/933831125
 
 springdoc:
   swagger-ui:

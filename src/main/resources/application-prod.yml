@@ -15,4 +15,4 @@ crazypoint:
   cache-management:
     clear-cache-on-start: false
   bigo-live:
-    user-updates-check-enabled: true
+    user-updates-check-enabled: false

@@ -1,7 +1,7 @@
 package ru.feodorkek.dev.crazypoint.config.data;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -12,6 +12,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import ru.feodorkek.dev.crazypoint.config.properties.CacheProperties;
 import ru.feodorkek.dev.crazypoint.init.PostConstructProvider;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
 public class RedisCacheConfig implements PostConstructProvider {
@@ -20,27 +21,22 @@ public class RedisCacheConfig implements PostConstructProvider {
     private final CacheProperties cacheProperties;
 
     public void clearAllCache() {
-        connectionFactory.getConnection().commands().flushDb();
+        try {
+            log.info("Start clearing all caches");
+            connectionFactory.getConnection().commands().flushDb();
+            log.info("Cache cleared successfully");
+        } catch (final Exception exception) {
+            log.error("Fail on clearing cache", exception);
+        }
     }
 
     @Bean
-    public CacheManagerCustomizer<RedisCacheManager> redisCacheManagerCustomizer() {
-        return cacheManager -> cacheManager.setTransactionAware(true);
-    }
-
-    @Bean
-    public RedisCacheConfiguration cacheConfiguration() {
-        return RedisCacheConfiguration.defaultCacheConfig()
-                .serializeValuesWith(RedisSerializationContext.SerializationPair
-                        .fromSerializer(RedisSerializer.json()))
-                .disableCachingNullValues();
-    }
-
-    @Bean
-    public RedisCacheManager cacheManager(final RedisCacheConfiguration cacheConfiguration) {
+    public RedisCacheManager cacheManager() {
         return RedisCacheManager.builder(connectionFactory)
-                .cacheDefaults(cacheConfiguration)
-                .transactionAware()
+                .cacheDefaults(RedisCacheConfiguration.defaultCacheConfig()
+                        .serializeValuesWith(RedisSerializationContext.SerializationPair
+                                .fromSerializer(RedisSerializer.json()))
+                        .disableCachingNullValues())
                 .build();
     }
 

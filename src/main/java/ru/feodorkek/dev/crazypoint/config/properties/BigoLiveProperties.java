@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Configuration;
 public class BigoLiveProperties {
 
     private boolean userUpdatesCheckEnabled;
-    private String userUpdatesApiUrl;
     private int userUpdatesCheckDelayMs;
+    private String userUpdatesApiUrl;
     private String userLinkPrefix;
 
     public String formatUserLink(final String siteId) {
