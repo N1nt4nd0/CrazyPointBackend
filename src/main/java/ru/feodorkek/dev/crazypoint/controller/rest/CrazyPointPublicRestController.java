@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.feodorkek.dev.crazypoint.business.CrazyPointUseCases;
-import ru.feodorkek.dev.crazypoint.dto.AvatarsDtoOut;
+import ru.feodorkek.dev.crazypoint.dto.AvatarsListDtoOut;
 
 @Tag(name = "CrazyPoint public usages")
 @CrossOrigin
@@ -24,9 +24,9 @@ public class CrazyPointPublicRestController {
         return ResponseEntity.ok("pong");
     }
 
-    @Operation(summary = "Get avatar urls")
-    @GetMapping("${crazypoint.web.rest.endpoints.public.avatar-urls}")
-    public ResponseEntity<AvatarsDtoOut> getAvatarUrls() {
+    @Operation(summary = "Get avatars")
+    @GetMapping("${crazypoint.web.rest.endpoints.public.avatars-list}")
+    public ResponseEntity<AvatarsListDtoOut> getAvatars() {
         return ResponseEntity.ok(crazyPointUseCases.getAvatars());
     }
 

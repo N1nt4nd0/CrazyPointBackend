@@ -13,6 +13,7 @@ import ru.feodorkek.dev.crazypoint.business.BigoUserUseCases;
 import ru.feodorkek.dev.crazypoint.dto.BigoOfficialUserInfo;
 import ru.feodorkek.dev.crazypoint.dto.BigoStreamChartDailyDtoOut;
 import ru.feodorkek.dev.crazypoint.dto.BigoStreamDaysDtoOut;
+import ru.feodorkek.dev.crazypoint.dto.BigoUsersListDtoOut;
 import ru.feodorkek.dev.crazypoint.service.DateTimeService;
 
 import java.time.LocalDate;
@@ -37,9 +38,9 @@ public class BigoLivePublicRestController {
     @GetMapping("${crazypoint.web.rest.endpoints.public.bigo-user-stream-chart-daily-data}")
     public ResponseEntity<BigoStreamChartDailyDtoOut> getBigoStreamChartDailyData(
             @RequestParam final String siteId,
-            @RequestParam(required = false) final String date) {
-        final var forDate = LocalDate.parse(date, dateTimeService.daysMonthYearFormatter());
-        return ResponseEntity.ok(bigoStreamChartUseCases.getChartDailyData(siteId, forDate));
+            @RequestParam(required = false) final String day) {
+        final var forDay = LocalDate.parse(day, dateTimeService.daysMonthYearFormatter());
+        return ResponseEntity.ok(bigoStreamChartUseCases.getChartDailyData(siteId, forDay));
     }
 
     @Operation(summary = "Get stream days")
@@ -47,6 +48,12 @@ public class BigoLivePublicRestController {
     public ResponseEntity<BigoStreamDaysDtoOut> getBigoStreamDaysData(
             @RequestParam final String siteId) {
         return ResponseEntity.ok(bigoStreamChartUseCases.getStreamDaysData(siteId));
+    }
+
+    @Operation(summary = "Get all users")
+    @GetMapping("${crazypoint.web.rest.endpoints.public.bigo-users-list}")
+    public ResponseEntity<BigoUsersListDtoOut> getAllUsers() {
+        return ResponseEntity.ok(bigoUserUseCases.getAllUsers());
     }
 
 }

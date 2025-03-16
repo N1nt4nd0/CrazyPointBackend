@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.feodorkek.dev.crazypoint.business.BigoUserUseCases;
 import ru.feodorkek.dev.crazypoint.dto.BigoUserDtoIn;
 import ru.feodorkek.dev.crazypoint.dto.BigoUserDtoOut;
-import ru.feodorkek.dev.crazypoint.dto.BigoUsersListDtoOut;
-import ru.feodorkek.dev.crazypoint.dto.DeleteBigoUserDtoOut;
 
 @Tag(name = "BigoUser private usages")
 @CrossOrigin
@@ -44,14 +41,9 @@ public class BigoLivePrivateRestController {
 
     @Operation(summary = "Delete user")
     @DeleteMapping("${crazypoint.web.rest.endpoints.private.bigo-user-delete}")
-    public ResponseEntity<DeleteBigoUserDtoOut> deleteUser(@RequestParam final String siteId) {
-        return ResponseEntity.ok(bigoUserUseCases.deleteUserBySiteId(siteId));
-    }
-
-    @Operation(summary = "Get all users")
-    @GetMapping("${crazypoint.web.rest.endpoints.private.bigo-users-list}")
-    public ResponseEntity<BigoUsersListDtoOut> getAllUsers() {
-        return ResponseEntity.ok(bigoUserUseCases.getAllUsers());
+    public ResponseEntity<Void> deleteUser(@RequestParam final String siteId) {
+        bigoUserUseCases.deleteUserBySiteId(siteId);
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "Update stream messages is showing")

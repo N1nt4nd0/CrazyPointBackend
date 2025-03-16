@@ -1,7 +1,9 @@
 package ru.feodorkek.dev.crazypoint.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
+import ru.feodorkek.dev.crazypoint.config.data.CacheKeyBuilder;
 import ru.feodorkek.dev.crazypoint.entity.BigoUser;
 import ru.feodorkek.dev.crazypoint.exception.BigoUserException;
 import ru.feodorkek.dev.crazypoint.exception.BigoUserStreamException;
@@ -62,11 +64,13 @@ public class BigoUserServiceImpl implements BigoUserService {
     }
 
     @Override
+    @CacheEvict(CacheKeyBuilder.BIGO_USERS_LIST_CACHE_NAME)
     public BigoUser saveUser(final BigoUser bigoUser) {
         return repository.save(bigoUser);
     }
 
     @Override
+    @CacheEvict(CacheKeyBuilder.BIGO_USERS_LIST_CACHE_NAME)
     public void deleteUser(final BigoUser bigoUser) {
         repository.delete(bigoUser);
     }

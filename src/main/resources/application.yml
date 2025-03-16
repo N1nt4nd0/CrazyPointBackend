@@ -33,20 +33,22 @@ crazypoint:
       endpoints:
         public:
           ping: /api/public/ping
-          avatar-urls: /api/public/avatar_urls
+          avatars-list: /api/public/avatar/list
           bigo-official-user-info: /api/public/bigo/official/user/info
           bigo-user-stream-chart-daily-data: /api/public/bigo/internal/user/stream_chart_daily
           bigo-user-stream-days-data: /api/public/bigo/internal/user/stream_days
+          bigo-users-list: /api/public/bigo/internal/user/list
           string-remove-dashes: /api/public/string/remove_dashes
           string-to-upper-case: /api/public/string/to_upper_case
           string-reverse: /api/public/string/reverse
         private:
+          avatar-create: /api/private/avatar/create
+          avatar-delete: /api/private/avatar/delete
           bigo-user-create: /api/private/bigo/internal/user/create
           bigo-user-update: /api/private/bigo/internal/user/update
           bigo-user-delete: /api/private/bigo/internal/user/delete
           bigo-user-start-stream: /api/private/bigo/internal/user/start_stream
           bigo-user-end-stream: /api/private/bigo/internal/user/end_stream
-          bigo-users-list: /api/private/bigo/internal/user/list
           bigo-user-show-stream-message: /api/private/bigo/internal/user/ssm
   bigo-live:
     user-updates-api-url: ${BIGO_LIVE_USER_UPDATES_API_URL}

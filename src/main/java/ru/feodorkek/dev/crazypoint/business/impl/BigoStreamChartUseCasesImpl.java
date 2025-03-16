@@ -68,8 +68,8 @@ public class BigoStreamChartUseCasesImpl implements BigoStreamChartUseCases {
 
     @Override
     @Cacheable(
-            value = CacheKeyBuilder.BIGO_STREAM_DAILY_CHART_CACHE_NAME,
-            key = "@cacheKeyBuilder.buildBigoStreamChartDailyCacheKey(#siteId, #day)"
+            value = CacheKeyBuilder.BIGO_USER_STREAM_CHART_DAILY_CACHE_NAME,
+            key = "@cacheKeyBuilder.buildBigoUserStreamChartDailyCacheKey(#siteId, #day)"
     )
     public BigoStreamChartDailyDtoOut getChartDailyData(final String siteId,
                                                         final LocalDate day) {
@@ -97,7 +97,7 @@ public class BigoStreamChartUseCasesImpl implements BigoStreamChartUseCases {
 
     @Override
     @Cacheable(
-            value = CacheKeyBuilder.BIGO_STREAM_DAYS_CACHE_NAME,
+            value = CacheKeyBuilder.BIGO_USER_STREAM_DAYS_CACHE_NAME,
             key = "#siteId"
     )
     public BigoStreamDaysDtoOut getStreamDaysData(final String siteId) {

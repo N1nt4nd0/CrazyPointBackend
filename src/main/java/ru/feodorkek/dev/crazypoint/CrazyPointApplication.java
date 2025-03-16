@@ -13,8 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 public class CrazyPointApplication {
 
     // TODO try to setting up transactions for mongo Railway
-    // TODO remove social and billing infos
-    // TODO add avatars Controller with avatars links
 
     public static void main(final String[] args) {
         SpringApplication.run(CrazyPointApplication.class, args);

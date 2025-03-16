@@ -4,7 +4,6 @@ import ru.feodorkek.dev.crazypoint.dto.BigoOfficialUserInfo;
 import ru.feodorkek.dev.crazypoint.dto.BigoUserDtoIn;
 import ru.feodorkek.dev.crazypoint.dto.BigoUserDtoOut;
 import ru.feodorkek.dev.crazypoint.dto.BigoUsersListDtoOut;
-import ru.feodorkek.dev.crazypoint.dto.DeleteBigoUserDtoOut;
 
 public interface BigoUserUseCases {
 
@@ -12,7 +11,7 @@ public interface BigoUserUseCases {
 
     BigoUserDtoOut updateUser(BigoUserDtoIn bigoUserDtoIn);
 
-    DeleteBigoUserDtoOut deleteUserBySiteId(String siteId);
+    void deleteUserBySiteId(String siteId);
 
     BigoUserDtoOut updateShowStreamMessages(String siteId, boolean showStreamMessages);
 

@@ -5,9 +5,9 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class AvatarsDtoOut {
+public class AvatarsListDtoOut {
 
-    private final List<String> avatarUrls;
+    private final List<AvatarDtoOut> avatars;
     private final int totalAvatars;
 
 }

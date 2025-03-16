@@ -39,12 +39,12 @@ public class BigoUserStreamServiceImpl implements BigoUserStreamService {
     @Override
     @Caching(evict = {
             @CacheEvict(
-                    value = CacheKeyBuilder.BIGO_STREAM_DAYS_CACHE_NAME,
+                    value = CacheKeyBuilder.BIGO_USER_STREAM_DAYS_CACHE_NAME,
                     key = "#bigoUser.siteId"
             ),
             @CacheEvict(
-                    value = CacheKeyBuilder.BIGO_STREAM_DAILY_CHART_CACHE_NAME,
-                    key = "@cacheKeyBuilder.buildBigoStreamChartDailyCacheKey(#bigoUser)"
+                    value = CacheKeyBuilder.BIGO_USER_STREAM_CHART_DAILY_CACHE_NAME,
+                    key = "@cacheKeyBuilder.buildBigoUserStreamChartDailyCacheKey(#bigoUser)"
             )}
     )
     public void endStream(final BigoUser bigoUser, final Instant endTime) {

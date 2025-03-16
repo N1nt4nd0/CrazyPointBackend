@@ -1,13 +1,14 @@
 package ru.feodorkek.dev.crazypoint.business.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.feodorkek.dev.crazypoint.business.BigoUserUseCases;
+import ru.feodorkek.dev.crazypoint.config.data.CacheKeyBuilder;
 import ru.feodorkek.dev.crazypoint.dto.BigoOfficialUserInfo;
 import ru.feodorkek.dev.crazypoint.dto.BigoUserDtoIn;
 import ru.feodorkek.dev.crazypoint.dto.BigoUserDtoOut;
 import ru.feodorkek.dev.crazypoint.dto.BigoUsersListDtoOut;
-import ru.feodorkek.dev.crazypoint.dto.DeleteBigoUserDtoOut;
 import ru.feodorkek.dev.crazypoint.mapper.BigoUserMapper;
 import ru.feodorkek.dev.crazypoint.service.BigoLiveApiService;
 import ru.feodorkek.dev.crazypoint.service.BigoUserService;
@@ -49,9 +50,8 @@ public class BigoUserUseCasesImpl implements BigoUserUseCases {
     }
 
     @Override
-    public DeleteBigoUserDtoOut deleteUserBySiteId(final String siteId) {
+    public void deleteUserBySiteId(final String siteId) {
         bigoUserService.deleteUserBySiteId(siteId);
-        return new DeleteBigoUserDtoOut(siteId, "Bigo user was successfully deleted");
     }
 
     @Override
@@ -61,6 +61,7 @@ public class BigoUserUseCasesImpl implements BigoUserUseCases {
     }
 
     @Override
+    @Cacheable(CacheKeyBuilder.BIGO_USERS_LIST_CACHE_NAME)
     public BigoUsersListDtoOut getAllUsers() {
         final var bigoUsers = bigoUserService.getAllUsers()
                 .stream()
