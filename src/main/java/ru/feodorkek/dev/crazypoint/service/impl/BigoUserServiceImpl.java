@@ -64,13 +64,19 @@ public class BigoUserServiceImpl implements BigoUserService {
     }
 
     @Override
-    @CacheEvict(CacheKeyBuilder.BIGO_USERS_LIST_CACHE_NAME)
+    @CacheEvict(
+            value = CacheKeyBuilder.BIGO_USERS_LIST_CACHE_NAME,
+            key = "@cacheKeyBuilder.buildBigoUsersListCacheKey()"
+    )
     public BigoUser saveUser(final BigoUser bigoUser) {
         return repository.save(bigoUser);
     }
 
     @Override
-    @CacheEvict(CacheKeyBuilder.BIGO_USERS_LIST_CACHE_NAME)
+    @CacheEvict(
+            value = CacheKeyBuilder.BIGO_USERS_LIST_CACHE_NAME,
+            key = "@cacheKeyBuilder.buildBigoUsersListCacheKey()"
+    )
     public void deleteUser(final BigoUser bigoUser) {
         repository.delete(bigoUser);
     }

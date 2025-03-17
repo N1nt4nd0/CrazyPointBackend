@@ -18,6 +18,10 @@ public class CacheKeyBuilder {
 
     private final DateTimeService dateTimeService;
 
+    public String buildBigoUsersListCacheKey() {
+        return "common_cache";
+    }
+
     public String buildBigoUserStreamChartDailyCacheKey(final String siteId, final LocalDate day) {
         return String.format("%s_%s", siteId, day.format(dateTimeService.daysMonthYearFormatter()));
     }

@@ -61,7 +61,10 @@ public class BigoUserUseCasesImpl implements BigoUserUseCases {
     }
 
     @Override
-    @Cacheable(CacheKeyBuilder.BIGO_USERS_LIST_CACHE_NAME)
+    @Cacheable(
+            value = CacheKeyBuilder.BIGO_USERS_LIST_CACHE_NAME,
+            key = "@cacheKeyBuilder.buildBigoUsersListCacheKey()"
+    )
     public BigoUsersListDtoOut getAllUsers() {
         final var bigoUsers = bigoUserService.getAllUsers()
                 .stream()
