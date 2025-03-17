@@ -1,13 +1,20 @@
 spring:
-  profiles:
-    active: ${CRAZY_POINT_ACTIVE_PROFILE}
-  data:
-    mongodb:
-      auto-index-creation: true
   main:
     web-application-type: servlet
   web:
     locale: en
+  data:
+    mongodb:
+      uri: ${MONGO_DB_URI}
+      database: ${MONGO_DB_NAME}
+      auto-index-creation: true
+    redis:
+      url: ${REDIS_URL}
+  rabbitmq:
+    host: ${RABBIT_MQ_HOST}
+    port: ${RABBIT_MQ_PORT}
+    username: ${RABBIT_MQ_USERNAME}
+    password: ${RABBIT_MQ_PASSWORD}
 
 server:
   servlet:
@@ -16,6 +23,8 @@ server:
       charset: UTF-8
 
 crazypoint:
+  cache-management:
+    clear-cache-on-start: ${DO_CLEAR_CACHE_ON_START}
   exception-generator:
     string-unit-exception-probability-percent: 10
   rabbit-mq-binding:
@@ -51,9 +60,10 @@ crazypoint:
           bigo-user-end-stream: /api/private/bigo/internal/user/end_stream
           bigo-user-show-stream-message: /api/private/bigo/internal/user/ssm
   bigo-live:
-    user-updates-api-url: ${BIGO_LIVE_USER_UPDATES_API_URL}
-    user-updates-check-delay-ms: 10000
     user-link-prefix: https://www.bigo.tv/user/
+    user-updates-api-url: ${BIGO_LIVE_USER_UPDATES_API_URL}
+    user-updates-check-enabled: ${BIGO_LIVE_USER_UPDATES_CHECK_ENABLED}
+    user-updates-check-delay-ms: 10000
 
 springdoc:
   swagger-ui:
