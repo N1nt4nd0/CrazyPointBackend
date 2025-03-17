@@ -11,10 +11,7 @@ spring:
     redis:
       url: ${REDIS_URL}
   rabbitmq:
-    host: ${RABBIT_MQ_HOST}
-    port: ${RABBIT_MQ_PORT}
-    username: ${RABBIT_MQ_USERNAME}
-    password: ${RABBIT_MQ_PASSWORD}
+    addresses: ${RABBIT_MQ_ADDRESS}
 
 server:
   servlet:
