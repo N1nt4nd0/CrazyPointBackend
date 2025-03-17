@@ -8,6 +8,9 @@ import ru.feodorkek.dev.crazypoint.dto.AvatarsListDtoOut;
 import ru.feodorkek.dev.crazypoint.mapper.AvatarMapper;
 import ru.feodorkek.dev.crazypoint.service.AvatarService;
 
+import java.util.Collections;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class CrazyPointUseCasesImpl implements CrazyPointUseCases {
@@ -19,7 +22,8 @@ public class CrazyPointUseCasesImpl implements CrazyPointUseCases {
     public AvatarsListDtoOut getAvatars() {
         final var avatars = avatarService.getAllAvatars().stream()
                 .map(avatarMapper::toAvatarDtoOut)
-                .toList();
+                .collect(Collectors.toList());
+        Collections.shuffle(avatars);
         return new AvatarsListDtoOut(avatars, avatars.size());
     }
 
