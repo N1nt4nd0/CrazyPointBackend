@@ -12,8 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @SpringBootApplication
 public class CrazyPointApplication {
 
-    // TODO try to setting up transactions for mongo Railway
-
     public static void main(final String[] args) {
         SpringApplication.run(CrazyPointApplication.class, args);
     }
