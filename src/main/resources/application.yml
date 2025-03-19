@@ -14,7 +14,7 @@ spring:
     addresses: ${RABBIT_MQ_ADDRESS}
 
 server:
-  port: ${PORT:8080}
+  port: ${PORT}
   servlet:
     encoding:
       force-response: true
