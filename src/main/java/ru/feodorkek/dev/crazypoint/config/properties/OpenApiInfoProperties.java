@@ -12,6 +12,5 @@ public class OpenApiInfoProperties {
     private String title;
     private String version;
     private String authorEmail;
-    private String deployServer;
 
 }

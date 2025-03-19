@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.feodorkek.dev.crazypoint.business.BigoUserUseCases;
@@ -19,11 +18,7 @@ import ru.feodorkek.dev.crazypoint.dto.BigoUserDtoIn;
 import ru.feodorkek.dev.crazypoint.dto.BigoUserDtoOut;
 
 @Tag(name = "BigoUser private usages")
-@CrossOrigin(
-        origins = "*",
-        allowedHeaders = "*",
-        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH, RequestMethod.DELETE}
-)
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 public class BigoLivePrivateRestController {
