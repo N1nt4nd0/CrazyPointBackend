@@ -19,6 +19,10 @@ public class BigoUserServiceImpl implements BigoUserService {
     private final BigoUserRepository repository;
 
     @Override
+    @CacheEvict(
+            value = CacheKeyBuilder.BIGO_USERS_LIST_CACHE_NAME,
+            key = "@cacheKeyBuilder.buildBigoUsersListCacheKey()"
+    )
     public BigoUser createNewUser(final String siteId,
                                   final String displayName,
                                   final String timeZone,
@@ -33,6 +37,10 @@ public class BigoUserServiceImpl implements BigoUserService {
     }
 
     @Override
+    @CacheEvict(
+            value = CacheKeyBuilder.BIGO_USERS_LIST_CACHE_NAME,
+            key = "@cacheKeyBuilder.buildBigoUsersListCacheKey()"
+    )
     public BigoUser updateUser(final String siteId,
                                final String displayName,
                                final String timeZone,
@@ -48,6 +56,10 @@ public class BigoUserServiceImpl implements BigoUserService {
     }
 
     @Override
+    @CacheEvict(
+            value = CacheKeyBuilder.BIGO_USERS_LIST_CACHE_NAME,
+            key = "@cacheKeyBuilder.buildBigoUsersListCacheKey()"
+    )
     public BigoUser updateShowStreamMessages(final String siteId, final boolean showStreamMessages) {
         return saveUser(getUserBySiteId(siteId).withShowStreamMessages(showStreamMessages));
     }
@@ -59,6 +71,10 @@ public class BigoUserServiceImpl implements BigoUserService {
     }
 
     @Override
+    @CacheEvict(
+            value = CacheKeyBuilder.BIGO_USERS_LIST_CACHE_NAME,
+            key = "@cacheKeyBuilder.buildBigoUsersListCacheKey()"
+    )
     public void deleteUserBySiteId(final String siteId) {
         deleteUser(getUserBySiteId(siteId));
     }
