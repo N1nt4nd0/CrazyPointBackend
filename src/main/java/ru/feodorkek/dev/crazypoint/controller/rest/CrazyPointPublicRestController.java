@@ -6,12 +6,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.feodorkek.dev.crazypoint.business.CrazyPointUseCases;
 import ru.feodorkek.dev.crazypoint.dto.AvatarsListDtoOut;
 
 @Tag(name = "CrazyPoint public usages")
-@CrossOrigin
+@CrossOrigin(
+        origins = "*",
+        allowedHeaders = "*",
+        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH, RequestMethod.DELETE}
+)
 @RestController
 @RequiredArgsConstructor
 public class CrazyPointPublicRestController {
