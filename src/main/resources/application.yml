@@ -37,6 +37,7 @@ crazypoint:
         title: CrazyPoint API
         version: 0.0.1
         author-email: feodor.kekovich@gmail.com
+        deploy-server: ${OPEN_API_DEPLOY_SERVER}
       endpoints:
         public:
           ping: /api/public/ping
