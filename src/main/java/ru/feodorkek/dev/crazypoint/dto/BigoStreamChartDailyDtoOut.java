@@ -5,21 +5,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @ToString
-public class BigoStreamChartDailyDtoOut implements Serializable {
+public class BigoStreamChartDailyDtoOut {
 
     private final String bigoUserName;
-    private final List<BigoStreamPartChartData> chartData;
+    private final List<BigoStreamSessionChartData> chartData;
     private final String totalDailyTime;
 
     @JsonCreator
     public BigoStreamChartDailyDtoOut(
             @JsonProperty("bigoUserName") final String bigoUserName,
-            @JsonProperty("chartData") final List<BigoStreamPartChartData> chartData,
+            @JsonProperty("chartData") final List<BigoStreamSessionChartData> chartData,
             @JsonProperty("totalDailyTime") final String totalDailyTime) {
         this.totalDailyTime = totalDailyTime;
         this.bigoUserName = bigoUserName;

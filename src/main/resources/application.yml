@@ -14,7 +14,6 @@ spring:
     addresses: ${RABBIT_MQ_ADDRESS}
 
 server:
-  port: ${PORT}
   servlet:
     encoding:
       force-response: true
@@ -28,6 +27,15 @@ crazypoint:
   rabbit-mq-binding:
     bigo-user-start-stream-event-exchange-name: bigo-user-start-stream-event-exchange
     bigo-user-end-stream-event-exchange-name: bigo-user-end-stream-event-exchange
+  bot:
+    telegram:
+      puerchik-bot:
+        name: ${TELEGRAM_PUER4IK_BOT_USERNAME}
+        token: ${TELEGRAM_PUER4IK_BOT_TOKEN}
+        main-output-chat-id: ${TELEGRAM_PUER4IK_BOT_MAIN_OUTPUT_CHAT_ID}
+        start-command-message: Бахнем пуэрчика!
+        admin-user-ids:
+          - 1066504503
   web:
     private-access:
       username: ${WEB_ACCESS_USERNAME}

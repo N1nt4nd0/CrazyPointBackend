@@ -17,7 +17,7 @@ public interface BigoUserUseCases {
 
     BigoUsersListDtoOut getAllUsers();
 
-    void startBigoStream(String siteId, String roomTopic);
+    void startBigoStream(String siteId, String roomTopic, String streamUrl);
 
     void endBigoStream(String siteId);
 

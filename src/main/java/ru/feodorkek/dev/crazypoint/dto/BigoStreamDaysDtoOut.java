@@ -15,8 +15,9 @@ public class BigoStreamDaysDtoOut {
     private final List<String> streamDays;
 
     @JsonCreator
-    public BigoStreamDaysDtoOut(@JsonProperty("bigoUserName") final String bigoUserName,
-                                @JsonProperty("streamDays") final List<String> streamDays) {
+    public BigoStreamDaysDtoOut(
+            @JsonProperty("bigoUserName") final String bigoUserName,
+            @JsonProperty("streamDays") final List<String> streamDays) {
         this.bigoUserName = bigoUserName;
         this.streamDays = streamDays;
     }

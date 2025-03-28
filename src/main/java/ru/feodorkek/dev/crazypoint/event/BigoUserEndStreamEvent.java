@@ -15,6 +15,7 @@ public class BigoUserEndStreamEvent {
     private final String roomTopic;
     private final Instant startStreamTime;
     private final Instant endStreamTime;
+    private final String streamSessionId;
     private final boolean showStreamMessage;
 
 }

@@ -74,17 +74,16 @@ public class BigoUserUseCasesImpl implements BigoUserUseCases {
     }
 
     @Override
-    public void startBigoStream(final String siteId, final String roomTopic) {
+    public void startBigoStream(final String siteId, final String roomTopic, final String streamUrl) {
         final var bigoUser = bigoUserService.getUserBySiteId(siteId);
-        bigoUserStreamService.startStream(bigoUser, roomTopic,
+        bigoUserStreamService.startStream(bigoUser, roomTopic, streamUrl,
                 dateTimeService.instantNowWithTruncatedSeconds());
     }
 
     @Override
     public void endBigoStream(final String siteId) {
         final var bigoUser = bigoUserService.getUserBySiteId(siteId);
-        bigoUserStreamService.endStream(bigoUser,
-                dateTimeService.instantNowWithTruncatedSeconds());
+        bigoUserStreamService.endStream(bigoUser, dateTimeService.instantNowWithTruncatedSeconds());
     }
 
     @Override

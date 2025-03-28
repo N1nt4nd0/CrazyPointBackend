@@ -58,8 +58,9 @@ public class BigoLivePrivateRestController {
     @PostMapping("${crazypoint.web.rest.endpoints.private.bigo-user-start-stream}")
     public ResponseEntity<Void> startBigoStream(
             @RequestParam final String siteId,
-            @RequestParam final String roomTopic) {
-        bigoUserUseCases.startBigoStream(siteId, roomTopic);
+            @RequestParam final String roomTopic,
+            @RequestParam final String streamUrl) {
+        bigoUserUseCases.startBigoStream(siteId, roomTopic, streamUrl);
         return ResponseEntity.ok().build();
     }
 

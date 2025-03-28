@@ -5,9 +5,11 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import ru.feodorkek.dev.crazypoint.config.data.CacheKeyBuilder;
+import ru.feodorkek.dev.crazypoint.config.properties.BigoLiveProperties;
 import ru.feodorkek.dev.crazypoint.entity.BigoUser;
+import ru.feodorkek.dev.crazypoint.event.BigoUserEndStreamEvent;
+import ru.feodorkek.dev.crazypoint.event.BigoUserStartStreamEvent;
 import ru.feodorkek.dev.crazypoint.exception.BigoUserStreamException;
-import ru.feodorkek.dev.crazypoint.mapper.BigoUserMapper;
 import ru.feodorkek.dev.crazypoint.service.BigoStreamSessionService;
 import ru.feodorkek.dev.crazypoint.service.BigoUserEventHandlerService;
 import ru.feodorkek.dev.crazypoint.service.BigoUserService;
@@ -21,19 +23,31 @@ public class BigoUserStreamServiceImpl implements BigoUserStreamService {
 
     private final BigoUserEventHandlerService bigoUserEventHandlerService;
     private final BigoStreamSessionService sessionService;
-    private final BigoUserMapper bigoUserMapper;
+    private final BigoLiveProperties bigoLiveProperties;
     private final BigoUserService userService;
 
     @Override
-    public void startStream(final BigoUser bigoUser, final String roomTopic, final Instant startTime) {
+    public void startStream(final BigoUser bigoUser,
+                            final String roomTopic,
+                            final String streamUrl,
+                            final Instant startTime) {
         if (bigoUser.isStreamingNow()) {
             throw new BigoUserStreamException("Can't process start stream. Already streaming");
         }
         final var streamSession = sessionService.createNewSession(bigoUser.getSiteId(), roomTopic,
                 bigoUser.getTimeZone(), startTime);
         final var updatedUser = userService.saveUser(bigoUser.withLastStreamSession(streamSession));
-        bigoUserEventHandlerService.postStartStreamEvent(bigoUserMapper
-                .toBigoUserStartStreamEvent(updatedUser));
+        bigoUserEventHandlerService.postStartStreamEvent(new BigoUserStartStreamEvent(
+                updatedUser.getSiteId(),
+                bigoLiveProperties.formatUserLink(updatedUser.getSiteId()),
+                updatedUser.getDisplayName(),
+                updatedUser.getTimeZone(),
+                updatedUser.getStartStreamMessage(),
+                updatedUser.getLastStreamSession().getRoomTopic(),
+                updatedUser.getLastStreamSession().getStartTime(),
+                updatedUser.getLastStreamSession().getId().toHexString(),
+                streamUrl,
+                updatedUser.isShowStreamMessages()));
     }
 
     @Override
@@ -54,8 +68,17 @@ public class BigoUserStreamServiceImpl implements BigoUserStreamService {
         final var streamSession = bigoUser.getLastStreamSession().withEndTime(endTime);
         final var updatedStreamSession = sessionService.saveSession(streamSession);
         final var updatedUser = userService.saveUser(bigoUser.withLastStreamSession(updatedStreamSession));
-        bigoUserEventHandlerService.postEndStreamEvent(bigoUserMapper
-                .toBigoUserEndStreamEvent(updatedUser));
+        bigoUserEventHandlerService.postEndStreamEvent(new BigoUserEndStreamEvent(
+                updatedUser.getSiteId(),
+                bigoLiveProperties.formatUserLink(updatedUser.getSiteId()),
+                updatedUser.getDisplayName(),
+                updatedUser.getTimeZone(),
+                updatedUser.getEndStreamMessage(),
+                updatedUser.getLastStreamSession().getRoomTopic(),
+                updatedUser.getLastStreamSession().getStartTime(),
+                updatedUser.getLastStreamSession().getEndTime(),
+                updatedUser.getLastStreamSession().getId().toHexString(),
+                updatedUser.isShowStreamMessages()));
     }
 
 }

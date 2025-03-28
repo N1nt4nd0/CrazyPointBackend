@@ -1,6 +1,7 @@
 package ru.feodorkek.dev.crazypoint.event;
 
 import lombok.Data;
+import ru.feodorkek.dev.crazypoint.util.StringUnit;
 
 import java.time.Instant;
 
@@ -14,6 +15,12 @@ public class BigoUserStartStreamEvent {
     private final String startStreamMessage;
     private final String roomTopic;
     private final Instant startStreamTime;
+    private final String streamSessionId;
+    private final String streamUrl;
     private final boolean showStreamMessage;
+
+    public boolean hasRoomTopic() {
+        return StringUnit.isNotBlank(roomTopic);
+    }
 
 }

@@ -6,7 +6,7 @@ import java.time.Instant;
 
 public interface BigoUserStreamService {
 
-    void startStream(BigoUser bigoUser, String roomTopic, Instant startTime);
+    void startStream(BigoUser bigoUser, String roomTopic, String streamUrl, Instant startTime);
 
     void endStream(BigoUser bigoUser, Instant endTime);
 

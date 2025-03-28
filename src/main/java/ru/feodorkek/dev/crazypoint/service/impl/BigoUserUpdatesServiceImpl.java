@@ -26,10 +26,11 @@ public class BigoUserUpdatesServiceImpl implements BigoUserUpdatesService {
     @Override
     public void processUserStreamUpdate(final BigoUser bigoUser,
                                         final boolean streamingNow,
-                                        final String roomTopic) {
+                                        final String roomTopic,
+                                        final String streamUrl) {
         if (streamingNow) {
             if (!bigoUser.isStreamingNow()) {
-                bigoUserStreamService.startStream(bigoUser, roomTopic,
+                bigoUserStreamService.startStream(bigoUser, roomTopic, streamUrl,
                         dateTimeService.instantNowWithTruncatedSeconds());
             }
         } else {
@@ -50,7 +51,7 @@ public class BigoUserUpdatesServiceImpl implements BigoUserUpdatesService {
             try {
                 final var data = bigoLiveApiService.fetchBigoOfficialUserInfo(bigoUser.getSiteId()).getData();
                 try {
-                    processUserStreamUpdate(bigoUser, data.isStreamingNow(), data.getRoomTopic());
+                    processUserStreamUpdate(bigoUser, data.isStreamingNow(), data.getRoomTopic(), data.getHls_src());
                 } catch (final Exception exception) {
                     log.error("Can't process stream update for BigoUser with siteId: {}",
                             bigoUser.getSiteId(), exception);

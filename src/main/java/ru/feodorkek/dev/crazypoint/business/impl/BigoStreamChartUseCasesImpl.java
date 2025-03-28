@@ -7,7 +7,7 @@ import ru.feodorkek.dev.crazypoint.business.BigoStreamChartUseCases;
 import ru.feodorkek.dev.crazypoint.config.data.CacheKeyBuilder;
 import ru.feodorkek.dev.crazypoint.dto.BigoStreamChartDailyDtoOut;
 import ru.feodorkek.dev.crazypoint.dto.BigoStreamDaysDtoOut;
-import ru.feodorkek.dev.crazypoint.dto.BigoStreamPartChartData;
+import ru.feodorkek.dev.crazypoint.dto.BigoStreamSessionChartData;
 import ru.feodorkek.dev.crazypoint.exception.BigoStreamChartException;
 import ru.feodorkek.dev.crazypoint.service.BigoStreamSessionService;
 import ru.feodorkek.dev.crazypoint.service.BigoUserService;
@@ -29,22 +29,22 @@ public class BigoStreamChartUseCasesImpl implements BigoStreamChartUseCases {
     private final DateTimeService dateTimeService;
     private final BigoUserService bigoUserService;
 
-    private String calculateStartTime(final ZonedDateTime startTime,
-                                      final LocalDate day,
-                                      final DateTimeFormatter formatter) {
+    private String calculateStartTimeLabel(final ZonedDateTime startTime,
+                                           final LocalDate day,
+                                           final DateTimeFormatter formatter) {
         return startTime.toLocalDate().isBefore(day) ? "00:00" : startTime.format(formatter);
     }
 
-    private String calculateEndTime(final ZonedDateTime endTime,
-                                    final LocalDate day,
-                                    final DateTimeFormatter formatter) {
+    private String calculateEndTimeLabel(final ZonedDateTime endTime,
+                                         final LocalDate day,
+                                         final DateTimeFormatter formatter) {
         return endTime.toLocalDate().isAfter(day) ? "23:59" : endTime.format(formatter);
     }
 
-    private long calculateDuration(final ZonedDateTime startTime,
-                                   final ZonedDateTime endTime,
-                                   final LocalDate day,
-                                   final ZoneId timeZone) {
+    private long calculateSecondsBetween(final ZonedDateTime startTime,
+                                         final ZonedDateTime endTime,
+                                         final LocalDate day,
+                                         final ZoneId timeZone) {
         final var from = startTime.toLocalDate().isBefore(day) ?
                 day.atStartOfDay(timeZone).toInstant() : startTime.toInstant();
         final var to = endTime.toLocalDate().isAfter(day) ?
@@ -52,12 +52,13 @@ public class BigoStreamChartUseCasesImpl implements BigoStreamChartUseCases {
         return Duration.between(from, to).toSeconds();
     }
 
-    private void addChartData(final List<BigoStreamPartChartData> chartData,
+    private void addChartData(final List<BigoStreamSessionChartData> chartData,
+                              final String sessionId,
                               final String startLabel,
                               final String endLabel,
                               final long secondsPart,
                               final String topic) {
-        chartData.add(new BigoStreamPartChartData(startLabel, endLabel,
+        chartData.add(new BigoStreamSessionChartData(sessionId, startLabel, endLabel,
                 formatTooltipTitle(startLabel, endLabel, secondsPart), topic));
     }
 
@@ -80,15 +81,16 @@ public class BigoStreamChartUseCasesImpl implements BigoStreamChartUseCases {
             throw new BigoStreamChartException("Can't find stream sessions for: " + day);
         }
         final var timeFormatter = dateTimeService.hoursMinutesFormatter();
-        final var chartData = new ArrayList<BigoStreamPartChartData>();
+        final var chartData = new ArrayList<BigoStreamSessionChartData>();
         var totalSeconds = 0L;
         for (final var session : sessions) {
             final var startTime = session.getStartTime().atZone(timeZone);
             final var endTime = session.getEndTime().atZone(timeZone);
-            final var startLabel = calculateStartTime(startTime, day, timeFormatter);
-            final var endLabel = calculateEndTime(endTime, day, timeFormatter);
-            final var secondsPart = calculateDuration(startTime, endTime, day, timeZone);
-            addChartData(chartData, startLabel, endLabel, secondsPart, session.getRoomTopic());
+            final var startLabel = calculateStartTimeLabel(startTime, day, timeFormatter);
+            final var endLabel = calculateEndTimeLabel(endTime, day, timeFormatter);
+            final var secondsPart = calculateSecondsBetween(startTime, endTime, day, timeZone);
+            addChartData(chartData, session.getId().toHexString(),
+                    startLabel, endLabel, secondsPart, session.getRoomTopic());
             totalSeconds += secondsPart;
         }
         return new BigoStreamChartDailyDtoOut(bigoUser.getDisplayName(), chartData,
