@@ -3,6 +3,7 @@ package ru.feodorkek.dev.crazypoint.controller.rest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +17,13 @@ import ru.feodorkek.dev.crazypoint.dto.AvatarsListDtoOut;
 @RequiredArgsConstructor
 public class CrazyPointPublicRestController {
 
+    private final RedisConnectionFactory redisConnectionFactory;
     private final CrazyPointUseCases crazyPointUseCases;
 
     @Operation(summary = "Ping endpoint")
     @GetMapping("${crazypoint.web.rest.endpoints.public.ping}")
     public ResponseEntity<String> ping() {
+        redisConnectionFactory.getConnection().ping();
         return ResponseEntity.ok("pong");
     }
 
